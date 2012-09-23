@@ -158,6 +158,54 @@
             }
         }
 
+        this.selectTarget = function(mouseX, mouseY) {
+            var Global = window.Global ;
+            //若鼠标在游戏区域内点击，则获取点击的方块索引值
+            if( Global.gameLeft <= mouseX && mouseX <= Global.gameLeft + 518 && Global.gameTop + 20 <= mouseY && mouseY <= Global.gameTop + 518 + 20 ) {
+                var y = Math.floor( ( mouseX - Global.gameLeft ) / 52 ) ;
+                var x = Math.floor( ( mouseY - Global.gameTop - 20 ) / 52 ) ;
+
+                if( Global.toolType === null ) {
+                    if( Global.map[x][y].focused === true && Global.map[x][y].removed === false ) {
+                        this.countingScore(Global.focused.length); //计算分数
+                        this.removeSquares() ; //消去方块
+                        this.reDraw() ;   //重绘
+                    }
+                    else {
+                        if( Global.focused.length !== 0 ) {
+                            this.reDraw() ; //重绘
+                        }
+                        if( Global.map[x][y].removed === false ) {
+                            Global.focused = this.DFS(Global.map[x][y], Global.map) ;
+                            if( Global.focused.length > 1 ) {
+                                this.focusSquares(Global.focused) ;
+                                this.showTempScore(Global.focused.length) ;
+                            }
+                            else {
+                                Global.divForTempScore.innerHTML = "" ;
+                            }
+                        }
+                    }
+                }
+                else {
+                    this.usingTools(Global.toolType, Global.map[x][y]) ;
+                }
+            }
+            else {  //若鼠标在游戏区域外点击，且之前有方块被选中，则重绘游戏区域
+                if( Global.toolType === null ) {
+                    if( Global.focused.length !== 0 ) {
+                        this.reDraw() //重绘
+                    }
+                    Global.divForTempScore.innerHTML = "" ;
+                    Global.brushColor = null ;
+                    Global.toolType = null ;
+                }
+                else {
+                    this.toolRecovery() ;
+                }
+            }
+        };
+
         this.reDraw = function() {
             console.log("redraw") ;
             var map = Global.map ;
@@ -212,7 +260,8 @@
             var index = 0 ;
             var col = new Array() ;
             col.push(focused[0]) ;
-            for( var i = 1; i < focused.length; i ++ ) {
+            var length = focused.length ;
+            for( var i = 1; i < length; i ++ ) {
                 if( focused[i-1].y !== focused[i].y || focused[i-1].x !== focused[i].x - 1 ) {
                     result[index] = col ;
                     col = new Array() ;
@@ -271,8 +320,10 @@
             distance = distance - step ;
             function moveLeft(that) {
                 ctx.clearRect(tempX*52, 0, (subMap.length+1)*52, height) ;
-                for( var i = 0 ; i < subMap.length ; i ++ ) {
-                    for( var j = 0 ; j < subMap[i].length ; j ++ ) {
+                var lengthOfSubMap = subMap.length
+                for( var i = 0 ; i < lengthOfSubMap ; i ++ ) {
+                    var lengthOfCol = subMap[i].length ;
+                    for( var j = 0 ; j < lengthOfCol ; j ++ ) {
                         subMap[i][j].px = subMap[i][j].px - step ;
                         if( subMap[i][j].removed === true ) {
                             continue ;

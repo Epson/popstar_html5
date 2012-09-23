@@ -1,0 +1,26 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>popsquare</title>
+</head>
+<body>
+
+    <div id="game">
+        <canvas id="myCanvas" width=518 height=518>
+
+        </canvas>
+    </div>
+</body>
+</html>
+<script type="text/javascript" src="Square.js"></script>
+<script type="text/javascript">
+    var canvas = document.getElementById("myCanvas") ;
+    var ctx = canvas.getContext("2d") ;
+    ctx.fillStyle = "#000000" ;
+    ctx.fillRect(0, 0, canvas.width, canvas.height) ;
+    var square = new Square(50, 50, 50, 50, "#DAA520") ;
+    square.draw(ctx) ;
+</script>
+
+

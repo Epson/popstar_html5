@@ -26,56 +26,25 @@
             };
         };
         var mousePos = getMousePosition(ev) ;
-        var Global = window.Global ;
-        //若鼠标在游戏区域内点击，则获取点击的方块索引值
-        if( Global.gameLeft <= mousePos.x && mousePos.x <= Global.gameLeft + 518 && Global.gameTop + 20 <= mousePos.y && mousePos.y <= Global.gameTop + 518 + 20 ) {
-            var y = Math.floor( ( mousePos.x - Global.gameLeft ) / 52 ) ;
-            var x = Math.floor( ( mousePos.y - Global.gameTop - 20 ) / 52 ) ;
 
-            if( Global.toolType === null ) {
-                if( Global.map[x][y].focused === true && Global.map[x][y].removed === false ) {
-                    controller.countingScore(Global.focused.length); //计算分数
-                    controller.removeSquares() ; //消去方块
-                    controller.reDraw() ;   //重绘
-                }
-                else {
-                    if( Global.focused.length !== 0 ) {
-                        controller.reDraw() ; //重绘
-                    }
-                    if( Global.map[x][y].removed === false ) {
-                        Global.focused = controller.DFS(Global.map[x][y], Global.map) ;
-                        if( Global.focused.length > 1 ) {
-                            controller.focusSquares(Global.focused) ;
-                            controller.showTempScore(Global.focused.length) ;
-                        }
-                        else {
-                            Global.divForTempScore.innerHTML = "" ;
-                        }
-                    }
-                }
-            }
-            else {
-                controller.usingTools(Global.toolType, Global.map[x][y]) ;
-            }
-        }
-        else {  //若鼠标在游戏区域外点击，且之前有方块被选中，则重绘游戏区域
-            if( Global.toolType === null ) {
-                if( Global.focused.length !== 0 ) {
-                    controller.reDraw() //重绘
-                }
-                Global.divForTempScore.innerHTML = "" ;
-                Global.brushColor = null ;
-                Global.toolType = null ;
-            }
-            else {
-                controller.toolRecovery() ;
-            }
-        }
+        controller.selectTarget(mousePos.x, mousePos.y) ;
     };
 
+    function fingerTouch(event) {
+        event.preventDefault();
+        if ( !event.touches.length ) {
+            return;
+        }
+
+        var touch = event.touches[0];
+        controller.selectTarget(touch.pageX, touch.pageY) ;
+    }
+    Global.MouseClick = MouseClick ;
+
+    document.addEventListener("touchstart", fingerTouch, false);
     document.onselectstart = function() {
         return false;
     }
     document.onmouseup = MouseClick ;
-    Global.MouseClick = MouseClick ;
+
 })(window);

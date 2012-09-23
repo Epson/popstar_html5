@@ -1,0 +1,56 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>popsquare</title>
+</head>
+<body>
+
+    <div id="game">
+        <canvas id="myCanvas" width=518 height=518>
+
+        </canvas>
+    </div>
+    <a href="javascript:void(0);" id="click">click</a>
+</body>
+</html>
+<script type="text/javascript" src="Square.js"></script>
+<script type="text/javascript">
+    var canvas = document.getElementById("myCanvas") ;
+    var ctx = canvas.getContext("2d") ;
+    var squares = [] ;
+    var square = new Square(0, 0, 0, 0, "#DAA520") ;
+    var disOfElem = 6 ;
+    square.draw(ctx) ;
+    var anotherSquare = new Square(0, 1, 0, 52, "green") ;
+    anotherSquare.draw(ctx) ;
+    squares.push(anotherSquare) ;
+    squares.push(square) ;
+    var distance = 52 * disOfElem ;
+    var step = parseInt( distance / 3 ) ;
+    distance = distance - step ;
+    var moveDown = function() {
+        console.log("squares[squares.length-1].y: " + squares[squares.length-1].y) ;
+        ctx.clearRect(52*squares[squares.length-1].y, 0, 52, 52*( squares.length+ disOfElem )) ;
+        //ctx.clearRect(0, 0, canvas.width, canvas.height) ;
+        for( var i = 0 ; i < squares.length ; i ++ ) {
+            squares[i].py = squares[i].py + step ;
+            squares[i].draw(ctx) ;
+        }
+
+        if( distance > 3 ) {
+            step = parseInt( distance / 3 ) ;
+        }
+        else {
+            step = 1 ;
+        }
+        distance = distance - step ;
+        if( distance >= 0 ) {
+            setTimeout(arguments.callee,50) ;
+        }
+    };
+
+    document.getElementById("click").onclick = moveDown ;
+</script>
+
+
