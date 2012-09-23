@@ -30,21 +30,9 @@
         controller.selectTarget(mousePos.x, mousePos.y) ;
     };
 
-    function fingerTouch(event) {
-        event.preventDefault();
-        if ( !event.touches.length ) {
-            return;
-        }
-
-        var touch = event.touches[0];
-        controller.selectTarget(touch.pageX, touch.pageY) ;
-    }
-    Global.MouseClick = MouseClick ;
-
-    Global.canvas.addEventListener("touchstart", fingerTouch, false);
     document.onselectstart = function() {
         return false;
     }
     document.onmouseup = MouseClick ;
-
+    Global.MouseClick = MouseClick ;
 })(window);

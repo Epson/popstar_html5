@@ -5,8 +5,6 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="075db15b-a8e3-4d72-b346-a6f55127a0f5" name="Default" comment="">
-      <change type="DELETED" beforePath="C:\Users\zhaojian\Desktop\WebstormProjects\popstar_html5\popstar_html5.zip" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Controller.js" afterPath="$PROJECT_DIR$/Controller.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/main.js" afterPath="$PROJECT_DIR$/main.js" />
     </list>
@@ -33,7 +31,7 @@
       <file leaf-file-name="index.html" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/index.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="16" column="67" selection-start="685" selection-end="685" vertical-scroll-proportion="-0.8947368">
+            <state line="23" column="10" selection-start="1181" selection-end="1181" vertical-scroll-proportion="-9.842105">
               <folding />
             </state>
           </provider>
@@ -48,19 +46,19 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Controller.js" pinned="false" current="false" current-in-tab="false">
+      <file leaf-file-name="Controller.js" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/Controller.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="871" column="22" selection-start="33530" selection-end="33530" vertical-scroll-proportion="-30.88">
+            <state line="27" column="80" selection-start="1543" selection-end="1543" vertical-scroll-proportion="1.0110133">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="main.js" pinned="false" current="true" current-in-tab="true">
+      <file leaf-file-name="main.js" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/main.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="43" column="69" selection-start="1320" selection-end="1320" vertical-scroll-proportion="0.8562368">
+            <state line="30" column="6" selection-start="971" selection-end="971" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
@@ -231,7 +229,7 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
-    <editor active="true" />
+    <editor active="false" />
     <layout>
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
@@ -329,38 +327,40 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Global.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="9" column="72" selection-start="415" selection-end="422" vertical-scroll-proportion="0.0" />
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/Square.js">
       <provider selected="true" editor-type-id="text-editor">
         <state line="42" column="8" selection-start="1821" selection-end="1821" vertical-scroll-proportion="0.0" />
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/Global.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="9" column="72" selection-start="415" selection-end="422" vertical-scroll-proportion="0.0" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/main.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="30" column="6" selection-start="971" selection-end="971" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/index.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="16" column="67" selection-start="685" selection-end="685" vertical-scroll-proportion="-0.8947368">
+        <state line="23" column="10" selection-start="1181" selection-end="1181" vertical-scroll-proportion="-9.842105">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/style.css">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="14" column="13" selection-start="179" selection-end="179" vertical-scroll-proportion="0.0" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Controller.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="871" column="22" selection-start="33530" selection-end="33530" vertical-scroll-proportion="-30.88">
+        <state line="14" column="13" selection-start="179" selection-end="179" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/main.js">
+    <entry file="file://$PROJECT_DIR$/Controller.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="43" column="69" selection-start="1320" selection-end="1320" vertical-scroll-proportion="0.8562368">
+        <state line="27" column="80" selection-start="1543" selection-end="1543" vertical-scroll-proportion="1.0110133">
           <folding />
         </state>
       </provider>

@@ -221,13 +221,13 @@
             }
 
             //显示各个小方块的位置及其颜色
-            /*for( var i = 0 ; i < 10 ; i ++ ) {
+            for( var i = 0 ; i < 10 ; i ++ ) {
                 var text = "" ;
                 for( var j = 0 ; j < 10 ; j ++ ) {
                     text = text + "(" + map[i][j].x + "," + map[i][j].y + "," + map[i][j].colorId + "," + map[i][j].removed + ")" ;
                 }
                 console.log(text) ;
-            }*/
+            }
         };
 
         this.sortAndDivide = function(focused) {
@@ -260,8 +260,7 @@
             var index = 0 ;
             var col = new Array() ;
             col.push(focused[0]) ;
-            var length = focused.length ;
-            for( var i = 1; i < length; i ++ ) {
+            for( var i = 1; i < focused.length; i ++ ) {
                 if( focused[i-1].y !== focused[i].y || focused[i-1].x !== focused[i].x - 1 ) {
                     result[index] = col ;
                     col = new Array() ;
@@ -320,10 +319,8 @@
             distance = distance - step ;
             function moveLeft(that) {
                 ctx.clearRect(tempX*52, 0, (subMap.length+1)*52, height) ;
-                var lengthOfSubMap = subMap.length
-                for( var i = 0 ; i < lengthOfSubMap ; i ++ ) {
-                    var lengthOfCol = subMap[i].length ;
-                    for( var j = 0 ; j < lengthOfCol ; j ++ ) {
+                for( var i = 0 ; i < subMap.length ; i ++ ) {
+                    for( var j = 0 ; j < subMap[i].length ; j ++ ) {
                         subMap[i][j].px = subMap[i][j].px - step ;
                         if( subMap[i][j].removed === true ) {
                             continue ;
@@ -383,7 +380,7 @@
 
             var that = this ;
             var ctx = Global.canvas.getContext("2d") ;
-            var step = parseInt( distance / 2 ) ;
+            var step = parseInt( distance / 3 ) ;
             distance = distance - step ;
 
             function moveDown(that) {
@@ -397,8 +394,8 @@
                     squaresAbove[i].draw(ctx) ;
                 }
 
-                if( distance > 2 ) {
-                    step = parseInt( distance / 2 ) ;
+                if( distance > 3 ) {
+                    step = parseInt( distance / 3 ) ;
                 }
                 else {
                     step = 1 ;
@@ -421,6 +418,7 @@
                         }
                         for( var j = 0 ; j < 9 ; j ++ ) {
                             if( Global.numOfElemPerCol[j] === 0 ) {
+                                console.log("y: " + i) ;
                                 var subMap = [] ;
                                 var tempIndex = 0 ;
                                 for( var l = j + 1; l < 10; l ++ ) {
@@ -432,9 +430,13 @@
                                     tempIndex ++ ;
                                 }
                                 if( j === max ) {
+                                    console.log("max") ;
+                                    //console.log(that) ;
                                     that.elemMoveLeft(ctx, subMap, 52,true) ;
                                 }
                                 else {
+                                    console.log("not max") ;
+                                    //console.log(that) ;
                                     that.elemMoveLeft(ctx, subMap, 52, false) ;
                                     max = max - 1 ;
                                 }
@@ -442,6 +444,13 @@
                                     Global.numOfElemPerCol[l-1] = Global.numOfElemPerCol[l] ;
                                 }
                                 Global.numOfElemPerCol[9] = -1 ;
+
+                                var text = "" ;
+                                for( var i = 0 ; i < 10 ; i ++ ) {
+                                    text = text + Global.numOfElemPerCol[i] + " " ;
+                                }
+                                console.log(text) ;
+                                j = j - 1 ;
                             }
                         }
 
@@ -454,6 +463,7 @@
             };
 
             function _moveDown(that) {
+                //console.log("_moveDown") ;
                 return function() {
                     moveDown(that) ;
                 }
@@ -519,8 +529,10 @@
             var map = Global.map ;
             Global.cols = this.sortAndDivide(Global.focused) ;
             var cols = Global.cols ;
+            //console.log(Global.cols.length) ;
 
             for( var i = 0 ; i < cols.length ; i ++ ) {
+                //console.log("cols[i][0].x: " + cols[i][0].x + " cols[i][0].y: " + cols[i][0].y ) ;
                 var squaresAbove = this.getSquaresAbove(cols[i][0].x, cols[i][0].y, map) ;
                 for( var j = 0 ; j < cols[i].length ; j ++ ) {
                     map[cols[i][j].x][cols[i][j].y].removed = true ;
@@ -580,6 +592,7 @@
             var q = new Queue() ;
             q.push(start) ;
             result.push(start) ;
+            //console.log(start) ;
             visit[start.x*10+start.y] = true ;
 
             while( q.empty() === false ) {
@@ -589,28 +602,36 @@
                 var x = temp.x ;
                 var y = temp.y ;
 
+                //console.log("temp.x: " + temp.x + ", temp.y: " + temp.y) ;
+
                 if( x > 0 && map[x-1][y].color === temp.color && visit[(x-1)*10+y] === false && map[x-1][y].removed === false ) {
                     q.push(map[x-1][y]) ;
                     result.push(map[x-1][y]) ;
+                    //console.log(map[x-1][y]) ;
                     visit[(x-1)*10+y] = true ;
                 }
                 if( x < 9 && map[x+1][y].color === temp.color && visit[(x+1)*10+y] === false && map[x+1][y].removed === false ) {
                     q.push(map[x+1][y]) ;
                     result.push(map[x+1][y]) ;
+                    //console.log(map[x+1][y]) ;
                     visit[(x+1)*10+y] = true ;
                 }
                 if( y > 0 && map[x][y-1].color === temp.color && visit[x*10+y-1] === false && map[x][y-1].removed === false ) {
                     q.push(map[x][y-1]) ;
                     result.push(map[x][y-1]) ;
+                    //console.log(map[x][y-1]) ;
                     visit[x*10+y-1] = true ;
                 }
                 if( y < 9 && map[x][y+1].color === temp.color && visit[x*10+y+1] === false && map[x][y+1].removed === false ) {
                     q.push(map[x][y+1]) ;
                     result.push(map[x][y+1]) ;
+                    //console.log(map[x][y+1]) ;
                     visit[x*10+y+1] = true ;
                 }
             }
 
+            //console.log(result);
+            //console.log("DFS end") ;
             return result ;
         };
 
@@ -650,10 +671,12 @@
                         continue ;
                     }
                     if( i !== 9 && map[i+1][j].removed === false && map[i][j].color === map[i+1][j].color ) {
+                        //console.log(map[i][j]) ;
                         flag = true ;
                         break ;
                     }
                     if( j !== 9 && map[i][j+1].removed === false && map[i][j].color === map[i][j+1].color ) {
+                        //console.log(map[i][j]) ;
                         flag = true ;
                         break ;
                     }
@@ -661,6 +684,7 @@
             }
             console.log("is the game continue? " + flag) ;
             var that = this ;
+            //console.log(that) ;
 
             if( flag === false ) {
                 console.log("this level is end") ;
@@ -733,6 +757,7 @@
                 if( Global.level < Global.levelScore.length ) {
                     console.log("Pass") ;
                     var that = this ;
+                    //console.log(this) ;
                     function _nextLevel(that) {
                         return function() {
                             that.nextLevel() ;
@@ -758,15 +783,19 @@
             else {
                 bonus = 0 ;
             }
+            //console.log("bonus: " + bonus + ", score: " + Global.score) ;
+
             Global.divForBonus.innerHTML = count + " Squares Left" + "<br/>" + "Bonus: " + bonus ;
 
             tempscore = Global.score ;
             Global.score = Global.score + bonus ;
+            //console.log("Glbal.score: " + Global.score) ;
 
             var step = parseInt( bonus / 15 ) ;
             bonus = bonus - step ;
             var show = function() {
                 tempscore = tempscore + step ;
+                //console.log("tempScore: " + tempscore) ;
                 Global.divForScore.innerHTML = "Score: " + tempscore ;
                 Global.divForBonus.innerHTML = count + " Squares Left" + "<br/>" + "Bonus: " + bonus ;
 
