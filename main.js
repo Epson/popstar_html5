@@ -41,7 +41,7 @@
     }
     Global.MouseClick = MouseClick ;
 
-    document.addEventListener("touchstart", fingerTouch, false);
+    Global.canvas.addEventListener("touchstart", fingerTouch, false);
     document.onselectstart = function() {
         return false;
     }
