@@ -5,6 +5,7 @@
         alert("This browser does NOT support localStorage, you can choose the Chrome browser to get better experience.") ;
         return ;
     }
+
     var canvas = Global.canvas ;
     var ctx = canvas.getContext("2d") ;
     var controller = new Controller() ;

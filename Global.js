@@ -7,7 +7,7 @@
         Global.divForScore = document.getElementById("score") ;
         Global.divForTarget = document.getElementById("target") ;
         Global.divForBonus = document.getElementById("bonus") ;
-        Global.color = ["#ff4500","#4169e1","#ffd700","#32cd32","#9400d3"] ;
+        Global.colorImage = [] ;
         Global.game = document.getElementById("game") ;
         Global.canvas = document.getElementById("myCanvas") ;
         Global.levelScore = [0,1000,3000,5000,7000,9000,12000,15000,18000,21000] ;
@@ -26,6 +26,32 @@
         Global.brushColor = null ;
         Global.toolType = null ;
         Global.MouseClick = null ;
+
+        Global.colorImage[0] = new Image()  ;
+        Global.colorImage[1] = new Image()  ;
+        Global.colorImage[2] = new Image()  ;
+        Global.colorImage[3] = new Image()  ;
+        Global.colorImage[4] = new Image()  ;
+
+        Global.colorImage[0].src = "images/0.png" ;
+        Global.colorImage[1].src = "images/1.png" ;
+        Global.colorImage[2].src = "images/2.png" ;
+        Global.colorImage[3].src = "images/3.png" ;
+        Global.colorImage[4].src = "images/4.png" ;
+
+        Global.colorImage[4].onload = function() {
+
+            var head = document.getElementsByTagName("head")[0] ;
+            var SquareJs = document.createElement("script") ;
+            SquareJs.src = "Square.js" ;
+            head.appendChild(SquareJs) ;
+            var ControllerJs = document.createElement("script") ;
+            ControllerJs.src = "Controller.js" ;
+            head.appendChild(ControllerJs) ;
+            var mainJs = document.createElement("script") ;
+            mainJs.src = "main.js" ;
+            head.appendChild(mainJs) ;
+        }
 
         window.Global = Global ;
     };

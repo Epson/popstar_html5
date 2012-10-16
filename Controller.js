@@ -58,7 +58,7 @@
                 for( var j = 0; j < 10; j ++ ) {
                     var colorId = Math.floor( Math.random() * 5 ) ;
 
-                    Global.map[i][j] = new Square(i, j, j * 52, i * 52 + 20, Global.color[colorId], colorId) ;
+                    Global.map[i][j] = new Square(i, j, j * 52, i * 52 + 20, colorId) ;
                     Global.map[i][j].draw(ctx) ;
                 }
             }
@@ -77,7 +77,7 @@
             var hammer = document.getElementById("hammer") ;
             var bomb = document.getElementById("bomb") ;
 
-            Global.brushColor = null ;
+            Global.brushColorId = null ;
             Global.toolType = null ;
 
             if( red.onclick === null ) {
@@ -86,7 +86,7 @@
                         return false ;
                     }
                     red.className = "tools_disabled" ;
-                    Global.brushColor = "#ff4500" ;
+                    Global.brushColorId = 0 ;
                     Global.toolType = "brush" ;
                     return false ;
                 };
@@ -97,7 +97,7 @@
                         return false ;
                     }
                     blue.className = "tools_disabled" ;
-                    Global.brushColor = "#4169e1" ;
+                    Global.brushColorId = 1 ;
                     Global.toolType = "brush" ;
                     return false ;
                 };
@@ -108,7 +108,7 @@
                         return false ;
                     }
                     yellow.className = "tools_disabled" ;
-                    Global.brushColor = "#ffd700" ;
+                    Global.brushColorId = 2 ;
                     Global.toolType = "brush" ;
                     return false ;
                 };
@@ -119,7 +119,7 @@
                         return false ;
                     }
                     green.className = "tools_disabled" ;
-                    Global.brushColor = "#32cd32" ;
+                    Global.brushColorId = 3 ;
                     Global.toolType = "brush" ;
                     return false ;
                 };
@@ -130,7 +130,7 @@
                         return false ;
                     }
                     purple.className = "tools_disabled" ;
-                    Global.brushColor = "#9400d3" ;
+                    Global.brushColorId = 4 ;
                     Global.toolType = "brush" ;
                     return false ;
                 };
@@ -197,7 +197,7 @@
                         this.reDraw() //重绘
                     }
                     Global.divForTempScore.innerHTML = "" ;
-                    Global.brushColor = null ;
+                    Global.brushColorId = null ;
                     Global.toolType = null ;
                 }
                 else {
@@ -604,25 +604,25 @@
 
                 //console.log("temp.x: " + temp.x + ", temp.y: " + temp.y) ;
 
-                if( x > 0 && map[x-1][y].color === temp.color && visit[(x-1)*10+y] === false && map[x-1][y].removed === false ) {
+                if( x > 0 && map[x-1][y].colorId === temp.colorId && visit[(x-1)*10+y] === false && map[x-1][y].removed === false ) {
                     q.push(map[x-1][y]) ;
                     result.push(map[x-1][y]) ;
                     //console.log(map[x-1][y]) ;
                     visit[(x-1)*10+y] = true ;
                 }
-                if( x < 9 && map[x+1][y].color === temp.color && visit[(x+1)*10+y] === false && map[x+1][y].removed === false ) {
+                if( x < 9 && map[x+1][y].colorId === temp.colorId && visit[(x+1)*10+y] === false && map[x+1][y].removed === false ) {
                     q.push(map[x+1][y]) ;
                     result.push(map[x+1][y]) ;
                     //console.log(map[x+1][y]) ;
                     visit[(x+1)*10+y] = true ;
                 }
-                if( y > 0 && map[x][y-1].color === temp.color && visit[x*10+y-1] === false && map[x][y-1].removed === false ) {
+                if( y > 0 && map[x][y-1].colorId === temp.colorId && visit[x*10+y-1] === false && map[x][y-1].removed === false ) {
                     q.push(map[x][y-1]) ;
                     result.push(map[x][y-1]) ;
                     //console.log(map[x][y-1]) ;
                     visit[x*10+y-1] = true ;
                 }
-                if( y < 9 && map[x][y+1].color === temp.color && visit[x*10+y+1] === false && map[x][y+1].removed === false ) {
+                if( y < 9 && map[x][y+1].colorId === temp.colorId && visit[x*10+y+1] === false && map[x][y+1].removed === false ) {
                     q.push(map[x][y+1]) ;
                     result.push(map[x][y+1]) ;
                     //console.log(map[x][y+1]) ;
@@ -670,12 +670,12 @@
                     if( map[i][j].removed === true ) {
                         continue ;
                     }
-                    if( i !== 9 && map[i+1][j].removed === false && map[i][j].color === map[i+1][j].color ) {
+                    if( i !== 9 && map[i+1][j].removed === false && map[i][j].colorId === map[i+1][j].colorId ) {
                         //console.log(map[i][j]) ;
                         flag = true ;
                         break ;
                     }
-                    if( j !== 9 && map[i][j+1].removed === false && map[i][j].color === map[i][j+1].color ) {
+                    if( j !== 9 && map[i][j+1].removed === false && map[i][j].colorId === map[i][j+1].colorId ) {
                         //console.log(map[i][j]) ;
                         flag = true ;
                         break ;
@@ -823,7 +823,6 @@
 
         this.nextLevel = function() {
             var ctx = Global.canvas.getContext("2d") ;
-            console.log(this) ;
             this.init() ;
         };
 
@@ -836,9 +835,9 @@
             }
             if( toolName === "brush" ) {
                 Global.divForTempScore.innerHTML = "" ;
-                elem.color = Global.brushColor ;
+                elem.colorId = Global.brushColorId ;
                 elem.draw(ctx) ;
-                Global.brushColor = null ;
+                Global.brushColorId = null ;
                 Global.toolType = null ;
             }
             if( toolName === "hammer" ) {
@@ -874,12 +873,12 @@
                 var colorClass = ["red", "blue", "yellow", "green", "purple"] ;
                 var brushes = document.getElementById("tools").getElementsByTagName("div") ;
                 for( var i = 0 ; i < 5 ; i ++ ) {
-                    if( Global.brushColor == Global.color[i] ) {
+                    if( Global.brushColorId == i ) {
                         brushes[i].className = colorClass[i] ;
                     }
                 }
                 Global.toolType = null ;
-                Global.brushColor = null ;
+                Global.brushColorId = null ;
             }
             if( Global.toolType === "hammer" || Global.toolType === "bomb" ){
                 var tool = document.getElementById(Global.toolType) ;
